@@ -33,4 +33,3 @@ let root = {
 graphql(schema, query, root).then((response) => {
     console.log(response); // Prints "{ sample: { hello: "world" } }"
 });
-

@@ -42,13 +42,14 @@ export const playlistResolvers = {
     Query: { Playlist: getPlaylist, allPlaylists },
     Mutation: { newPlaylist, updatePlaylist, deletePlaylist },
     Playlist: {
-        songs: (playlistRootValue, args, context, info) => {
+        songs: async (playlistRootValue, args, context, info) => {
             // YOU CAN RETURN AN ARRAY OF SONGS, OR SONG IDs
             // BUT FOR songs FIELD HOWEVER, IT'S SUPPOSED TO BE AN ARRAY OF Song TYPES/OBJECTS
             // THEREFORE, YOU NEED TO TELL MONGO-DB TO deepPopulate THE songs FIELD WITH SONG OBJECTS
             // AND NOT JUST GO "BY DEFAULT" AND ONLY RETURN AN ARRAY OF SONG OBJECT IDs (STRINGS)
-
-
+            const populated = await playlistRootValue.populate('songs').execPopulate();
+            return populated.songs; // YOU CAN VERIFY PROPS OF EACH SONG IN .songs
+            // VERIFY THE PROPS WITH THE FIELDS OF THE Song TYPE/OBJECT ON GRAPH-QL
         }
     }
 };

@@ -24,6 +24,16 @@ export const userResolvers = {
             // YOU CAN RETURN AN ARRAY OF USERS, OR USER IDs
             if(args.sorting) return []; // SORT THIS ARRAY
             else return []; // NO NEED TO SORT THIS ARRAY
+        }, 
+        playlists: async (userRootValue, args, context, info) => {
+            // YOU CAN RETURN AN ARRAY OF PLAYLISTS, OR PLAYLIST IDs
+            // BUT FOR playlists FIELD HOWEVER, IT'S SUPPOSED TO BE AN ARRAY OF Playlist TYPES/OBJECTS
+            // THEREFORE, YOU NEED TO TELL MONGO-DB TO deepPopulate THE playlists FIELD WITH PLAYLIST OBJECTS
+            // AND NOT JUST GO "BY DEFAULT" AND ONLY RETURN AN ARRAY OF PLAYLIST OBJECT IDs (STRINGS)
+            const populated = await userRootValue.populate('playlists').execPopulate();
+            return populated.playlists;
+            // EVEN THOUGH userRootValue IS THE PARENT NODE ON THIS GRAPH(QL),
+            // IT'S STILL A MONGOOSE (MONGO-DB) OBJECT, SO YOU CAN CALL .populate() & MONGO-DB METHODS
         }
     }
 };

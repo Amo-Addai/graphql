@@ -23,3 +23,16 @@ export const graphQLRouter = graphqlExpress(req => ({
     // context IS EVERY context ARGUMENT ON ALL RESOLVERS ..
     // SO THE req & user PROPS ARE WITHIN THE context (3rd)
 }));
+
+
+// EXTRA STUFF ON GRAPH-QL USAGE
+import { graphql } from 'graphql'
+
+// Run the GraphQL query '{ hello }' and print out the response
+// Can be used as a GraphQL Testing tool ..
+// USING IT WITHIN TEST FILES (user.spec.js) TO MAKE GRAPH-QL REQUESTS :)
+graphql(schema, graphqlQuery, root, {user}, variables).then((response) => {
+    console.log(response); // Prints "{ sample: { hello: "world" } }"
+    // BASICALLY PRINTS THE RESPONSE GIVEN BY THE GRAPH-QL SERVER
+});
+
