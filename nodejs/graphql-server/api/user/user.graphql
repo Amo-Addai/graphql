@@ -1,0 +1,25 @@
+type Query {
+    getMe: User!
+    allUsers: [User]!
+}
+
+type Mutation {
+    updateMe(input: UpdatedUser!): User!
+}
+
+type User {
+    id: ID!
+    username: String!
+    playlists: [Playlist]!
+    createdAt: String!
+    updatedAt: String!
+    friends(sorting: Boolean! = true): [User]!
+}
+
+input NewUser {
+
+}
+
+input UpdatedUser {
+    username: String!
+}

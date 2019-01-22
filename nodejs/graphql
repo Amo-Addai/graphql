@@ -1,0 +1,111 @@
+# SCHEMAS HERE
+
+type Query {
+    getMe: User!
+    allUsers: [User]!
+    Song(id: ID!): Song!
+    allSongs: [Song]!
+    Playlist(id: ID!): Playlist!
+    allPlaylists: [Playlist]!
+}
+
+type Mutation {
+    updateMe(input: UpdatedUser!): User!
+    newSong(input: NewSong!): Song!
+    updateSong(input: UpdatedSong!): Song!
+    newPlaylist(input: NewPlaylist!): Playlist!
+    updatePlaylist(input: UpdatedPlaylist!): Playlist!
+}
+
+type User {
+    id: ID!
+    username: String!
+    playlists: [Playlist]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+input NewUser {
+
+}
+
+input UpdatedUser {
+    username: String!
+}
+
+type Song {
+    id: ID!
+    title: String!
+    url: String!
+    album: String
+    artist: String
+    rating: Int!
+    favorite: Boolean!
+}
+
+input NewSong {
+    title: String!
+    url: String!
+    album: String
+    artist: String
+    rating: Int
+    favorite: Boolean
+    # favorite: Boolean = false  # DEFAULT VALUES ONLY WORK ON input
+}
+
+input UpdatedSong {
+    id: ID!
+    title: String
+    url: String
+    album: String
+    artist: String
+    rating: Int
+    favorite: Boolean
+}
+
+type Playlist {
+    id: ID!
+    title: String!
+    songs: [Song]!
+    favorite: Boolean!
+}
+
+input NewPlaylist {
+
+}
+
+input UpdatedPlaylist {
+    id: ID!
+    title: String
+    songs: [NewSong]
+    favorite: Boolean
+}
+
+
+
+#  CLIENT QUERIES HERE
+
+query GetAllSongs {
+    songs: allSongs {
+        id
+        url
+        title
+    }
+}
+
+mutation CreateSong($input: NewSong!) {
+    song: newSong(input: $input) {
+        id
+        url
+        title
+    }
+}
+
+
+# QUERY VARIABLES
+
+{
+    "input": { "title": "..", "url": "http://..", "artist": ".." }
+}
+
+

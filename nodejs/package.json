@@ -1,0 +1,11 @@
+{
+  "name": "graphql-tutorial",
+  "version": "1.0.0",
+  "description": "Learning Graphql",
+  "main": "express-grahpql.js",
+  "scripts": {
+    "test": "graphql-test"
+  },
+  "author": "Kwadwo Amo-Addai",
+  "license": "ISC"
+}

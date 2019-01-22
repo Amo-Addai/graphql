@@ -1,0 +1,45 @@
+extend type Query {
+    Playlist(id: ID!): Playlist!
+    allPlaylists: [Playlist]!
+}
+
+extend type Mutation {
+    newPlaylist(input: NewPlaylist!): Playlist!
+    updatePlaylist(input: UpdatedPlaylist!): Playlist!
+    deletePlaylist(input: ID!): Playlist
+}
+
+type Playlist {
+    id: ID!
+    title: String!
+    songs: [Song]!
+    favorite: Boolean!
+}
+
+input NewPlaylist {
+    title: String
+    songs: [ID!]
+    favorite: Boolean
+}
+
+input UpdatedPlaylist {
+    id: ID!
+    title: String
+    songs: [ID!]  # JUST USE ID DATATYPE (INSTEAD OF PASSING IN A WHOLE Song / NewSong OBJECT)
+    favorite: Boolean
+}
+
+
+#  EXAMPLE QUERIES
+
+mutation CreatePlaylist($input: NewPlaylist!) {
+    newPlaylist(input: $input) {
+        id
+        songs { # YOU NEED TO SPECIFY THE PROPS OF songs ITEMS TOO
+        # COZ THIS songs IS AN ARRAY OF Song TYPES, AND NOT ARRAY OF IDs
+            id
+            title
+        }
+    }
+}
+
